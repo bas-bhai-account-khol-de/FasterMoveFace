@@ -26,6 +26,8 @@ huggingface_hub[cli]==0.23.4
 
 # Web UI
 gradio==4.44.1
+# Gradio 4.x uses Starlette's pre-1.0 TemplateResponse(name, context); Starlette 1.0 removed it → Jinja2 "unhashable type: 'dict'".
+starlette>=0.46.0,<1.0.0
 
 # Geometry (used for paste_back CUDA optimization in this repo)
 torchgeometry==0.1.2
