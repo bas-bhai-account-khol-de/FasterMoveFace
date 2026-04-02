@@ -34,6 +34,7 @@ if args.mode == "onnx":
     cfg_path = "configs/onnx_mp_infer.yaml" if args.use_mp else "configs/onnx_infer.yaml"
 else:
     cfg_path = "configs/trt_mp_infer.yaml" if args.use_mp else "configs/trt_infer.yaml"
+# infer_cfg = OmegaConf.load(cfg_path)
 infer_cfg = OmegaConf.load(cfg_path)
 gradio_pipeline = GradioLivePortraitPipeline(infer_cfg)
 
@@ -62,8 +63,8 @@ example_video_dir = "assets/examples/driving"
 eye_retargeting_slider = gr.Slider(minimum=0, maximum=0.8, step=0.01, label="target eyes-open ratio")
 lip_retargeting_slider = gr.Slider(minimum=0, maximum=0.8, step=0.01, label="target lip-open ratio")
 retargeting_input_image = gr.Image(type="filepath")
-output_image = gr.Image(format="png", type="numpy")
-output_image_paste_back = gr.Image(format="png", type="numpy")
+output_image = gr.Image(type="numpy")
+output_image_paste_back = gr.Image(type="numpy")
 
 js_func = """
     function refresh() {
@@ -245,11 +246,11 @@ with gr.Blocks(theme=gr.themes.Soft(font=[gr.themes.GoogleFont("Plus Jakarta San
                 output_video_concat_i2v = gr.Video(autoplay=False, label="The animated video")
         with gr.Row():
             with gr.Column():
-                output_image_i2i = gr.Image(format="png", type="numpy",
+                output_image_i2i = gr.Image( type="numpy",
                                             label="The animated image in the original image space",
                                             visible=False)
             with gr.Column():
-                output_image_concat_i2i = gr.Image(format="png", type="numpy", label="The animated image",
+                output_image_concat_i2i = gr.Image( type="numpy", label="The animated image",
                                                    visible=False)
     with gr.Row():
         process_button_reset = gr.ClearButton(
@@ -345,6 +346,6 @@ with gr.Blocks(theme=gr.themes.Soft(font=[gr.themes.GoogleFont("Plus Jakarta San
 if __name__ == '__main__':
     demo.launch(
         server_port=args.port,
-        share=False,
+        share=True,
         server_name=args.host_ip
     )

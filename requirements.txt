@@ -1,18 +1,37 @@
-ffmpeg-python
-omegaconf
-onnx
-pycuda
-numpy
-opencv-python
-gradio
-scikit-image
+# Core
+numpy==1.26.4
+opencv-python==4.8.1.78
+
+# ONNX
+onnx==1.16.1
+onnxruntime-gpu==1.17.0   # must be the custom-built one per repo instructions
+                           # OR use CPU: onnxruntime==1.17.0
+
+# CUDA Python binding
+pycuda==2024.1
+
+# Config / utils
+omegaconf==2.3.0
+munch==4.0.0
+soundfile==0.12.1
+scikit-image==0.22.0
+
+# Face / media
 insightface
-huggingface_hub[cli]
 mediapipe
-torchgeometry
-soundfile
-munch
-phonemizer
+ffmpeg-python
+
+# HuggingFace
+huggingface_hub[cli]==0.23.4
+
+# Web UI
+gradio==4.44.1
+
+# Geometry (used for paste_back CUDA optimization in this repo)
+torchgeometry==0.1.2
+
+# TTS / audio
+phonemizer==3.2.1
 kokoro>=0.3.4
 misaki[ja]
 misaki[zh]
