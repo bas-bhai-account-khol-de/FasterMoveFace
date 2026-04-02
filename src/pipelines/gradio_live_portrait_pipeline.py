@@ -117,7 +117,7 @@ class GradioLivePortraitPipeline(FasterLivePortraitPipeline):
                 video_path, video_path_concat, total_time = self.run_video_driving(input_driving_path,
                                                                                    input_source_path,
                                                                                    update_ret=update_ret)
-                gr.Info(f"Run successfully! Cost: {total_time} seconds!", duration=3)
+                gr.Info(f"Run successfully! Cost: {total_time} seconds!")
                 return gr.update(visible=True), video_path, gr.update(visible=True), video_path_concat, gr.update(
                     visible=False), gr.update(visible=False), gr.update(visible=False), gr.update(visible=False)
             elif v_tab_selection == 'Pickle':
@@ -125,7 +125,7 @@ class GradioLivePortraitPipeline(FasterLivePortraitPipeline):
                 video_path, video_path_concat, total_time = self.run_pickle_driving(input_driving_path,
                                                                                     input_source_path,
                                                                                     update_ret=update_ret)
-                gr.Info(f"Run successfully! Cost: {total_time} seconds!", duration=3)
+                gr.Info(f"Run successfully! Cost: {total_time} seconds!")
                 return gr.update(visible=True), video_path, gr.update(visible=True), video_path_concat, gr.update(
                     visible=False), gr.update(visible=False), gr.update(visible=False), gr.update(visible=False)
             elif v_tab_selection == 'Audio':
@@ -133,7 +133,7 @@ class GradioLivePortraitPipeline(FasterLivePortraitPipeline):
                 video_path, video_path_concat, total_time = self.run_audio_driving(input_driving_path,
                                                                                    input_source_path,
                                                                                    update_ret=update_ret)
-                gr.Info(f"Run successfully! Cost: {total_time} seconds!", duration=3)
+                gr.Info(f"Run successfully! Cost: {total_time} seconds!")
                 return gr.update(visible=True), video_path, gr.update(visible=True), video_path_concat, gr.update(
                     visible=False), gr.update(visible=False), gr.update(visible=False), gr.update(visible=False)
             elif v_tab_selection == 'Text':
@@ -142,7 +142,7 @@ class GradioLivePortraitPipeline(FasterLivePortraitPipeline):
                                                                                   voice_name,
                                                                                   input_source_path,
                                                                                   update_ret=update_ret)
-                gr.Info(f"Run successfully! Cost: {total_time} seconds!", duration=3)
+                gr.Info(f"Run successfully! Cost: {total_time} seconds!")
                 return gr.update(visible=True), video_path, gr.update(visible=True), video_path_concat, gr.update(
                     visible=False), gr.update(visible=False), gr.update(visible=False), gr.update(visible=False)
             else:
@@ -150,12 +150,12 @@ class GradioLivePortraitPipeline(FasterLivePortraitPipeline):
                 image_path, image_path_concat, total_time = self.run_image_driving(input_driving_path,
                                                                                    input_source_path,
                                                                                    update_ret=update_ret)
-                gr.Info(f"Run successfully! Cost: {total_time} seconds!", duration=3)
+                gr.Info(f"Run successfully! Cost: {total_time} seconds!")
                 return gr.update(visible=False), gr.update(visible=False), gr.update(visible=False), gr.update(
                     visible=False), gr.update(visible=True), image_path, gr.update(
                     visible=True), image_path_concat
         else:
-            raise gr.Error("The input source portrait or driving video hasn't been prepared yet 💥!", duration=5)
+            raise gr.Error("The input source portrait or driving video hasn't been prepared yet 💥!")
 
     def run_image_driving(self, driving_image_path, source_path, **kwargs):
         if self.source_path != source_path or kwargs.get("update_ret", False):
@@ -163,7 +163,7 @@ class GradioLivePortraitPipeline(FasterLivePortraitPipeline):
             self.init_vars(**kwargs)
             ret = self.prepare_source(source_path)
             if not ret:
-                raise gr.Error(f"Error in processing source:{source_path} 💥!", duration=5)
+                raise gr.Error(f"Error in processing source:{source_path} 💥!")
 
         driving_image = cv2.imread(driving_image_path)
         save_dir = f"./results/{datetime.datetime.now().strftime('%Y-%m-%d-%H%M%S')}"
@@ -196,7 +196,7 @@ class GradioLivePortraitPipeline(FasterLivePortraitPipeline):
             self.init_vars(**kwargs)
             ret = self.prepare_source(source_path)
             if not ret:
-                raise gr.Error(f"Error in processing source:{source_path} 💥!", duration=5)
+                raise gr.Error(f"Error in processing source:{source_path} 💥!")
 
         vcap = cv2.VideoCapture(driving_video_path)
         if self.is_source_video:
@@ -298,7 +298,7 @@ class GradioLivePortraitPipeline(FasterLivePortraitPipeline):
             self.init_vars(**kwargs)
             ret = self.prepare_source(source_path)
             if not ret:
-                raise gr.Error(f"Error in processing source:{source_path} 💥!", duration=5)
+                raise gr.Error(f"Error in processing source:{source_path} 💥!")
 
         with open(driving_pickle_path, "rb") as fin:
             dri_motion_infos = pickle.load(fin)
@@ -375,7 +375,7 @@ class GradioLivePortraitPipeline(FasterLivePortraitPipeline):
             self.init_vars(**kwargs)
             ret = self.prepare_source(source_path)
             if not ret:
-                raise gr.Error(f"Error in processing source:{source_path} 💥!", duration=5)
+                raise gr.Error(f"Error in processing source:{source_path} 💥!")
         save_dir = kwargs.get("save_dir", f"./results/{datetime.datetime.now().strftime('%Y-%m-%d-%H%M%S')}")
         os.makedirs(save_dir, exist_ok=True)
 
@@ -388,7 +388,7 @@ class GradioLivePortraitPipeline(FasterLivePortraitPipeline):
                                                             )
         t01 = time.time()
         dri_motion_infos = self.joyvasa_pipe.gen_motion_sequence(driving_audio_path)
-        gr.Info(f"JoyVASA cost time:{time.time() - t01}", duration=2)
+        gr.Info(f"JoyVASA cost time:{time.time() - t01}")
         motion_pickle_path = os.path.join(save_dir,
                                           f"{os.path.basename(source_path)}-{os.path.basename(driving_audio_path)}.pkl")
         with open(motion_pickle_path, "wb") as fw:
@@ -426,7 +426,7 @@ class GradioLivePortraitPipeline(FasterLivePortraitPipeline):
             self.init_vars(**kwargs)
             ret = self.prepare_source(source_path)
             if not ret:
-                raise gr.Error(f"Error in processing source:{source_path} 💥!", duration=5)
+                raise gr.Error(f"Error in processing source:{source_path} 💥!")
         save_dir = kwargs.get("save_dir", f"./results/{datetime.datetime.now().strftime('%Y-%m-%d-%H%M%S')}")
         os.makedirs(save_dir, exist_ok=True)
         # TODO: make it better
@@ -471,7 +471,7 @@ class GradioLivePortraitPipeline(FasterLivePortraitPipeline):
             self.prepare_retargeting(input_image, flag_do_crop)
 
         if input_eye_ratio is None or input_lip_ratio is None:
-            raise gr.Error("Invalid ratio input 💥!", duration=5)
+            raise gr.Error("Invalid ratio input 💥!")
         else:
             # ∆_eyes,i = R_eyes(x_s; c_s,eyes, c_d,eyes,i)
             combined_eye_ratio_tensor = self.calc_combined_eye_ratio([[input_eye_ratio]], source_lmk_user)
@@ -486,7 +486,7 @@ class GradioLivePortraitPipeline(FasterLivePortraitPipeline):
             out = self.model_dict["warping_spade"].predict(f_s_user, x_s_user, x_d_new)
             img_rgb = torch.from_numpy(img_rgb).to(self.device)
             out_to_ori_blend = paste_back_pytorch(out, crop_M_c2o, img_rgb, mask_ori)
-            gr.Info("Run successfully!", duration=2)
+            gr.Info("Run successfully!")
             return out.to(dtype=torch.uint8).cpu().numpy(), out_to_ori_blend.to(dtype=torch.uint8).cpu().numpy()
 
     def prepare_retargeting(self, input_image, flag_do_crop=True):
@@ -500,12 +500,12 @@ class GradioLivePortraitPipeline(FasterLivePortraitPipeline):
             img_rgb = cv2.cvtColor(img_bgr, cv2.COLOR_BGR2RGB)
 
             if self.is_animal:
-                raise gr.Error("Animal Model Not Supported in Face Retarget 💥!", duration=5)
+                raise gr.Error("Animal Model Not Supported in Face Retarget 💥!")
             else:
                 src_faces = self.model_dict["face_analysis"].predict(img_bgr)
 
             if len(src_faces) == 0:
-                raise gr.Error("No face detect in image 💥!", duration=5)
+                raise gr.Error("No face detect in image 💥!")
             src_faces = src_faces[:1]
             crop_infos = []
             for i in range(len(src_faces)):
@@ -559,4 +559,4 @@ class GradioLivePortraitPipeline(FasterLivePortraitPipeline):
             return f_s_user, x_s_user, source_lmk_user, crop_M_c2o, mask_ori, img_rgb
         else:
             # when press the clear button, go here
-            raise gr.Error("The retargeting input hasn't been prepared yet 💥!", duration=5)
+            raise gr.Error("The retargeting input hasn't been prepared yet 💥!")
